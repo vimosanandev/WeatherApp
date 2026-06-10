@@ -1,0 +1,45 @@
+# Built outputs
+/build
+app/build
+
+# Gradle
+.gradle
+gradle/wrapper/gradle-wrapper.jar
+
+# Local config (SDK path, signing keys)
+local.properties
+keystore.properties
+
+# IntelliJ / Android Studio
+*.iml
+.idea/caches
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/.gitignore
+.idea/deploymentTargetDropDown.xml
+.idea/render.experimental.xml
+
+# Native build
+.externalNativeBuild
+.cxx
+
+# Captures (profiler/layout inspector output)
+/captures
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Signing keystores (never commit)
+*.jks
+*.keystore
