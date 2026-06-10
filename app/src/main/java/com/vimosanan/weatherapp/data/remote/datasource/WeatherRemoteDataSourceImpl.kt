@@ -1,6 +1,5 @@
 package com.vimosanan.weatherapp.data.remote.datasource
 
-import com.vimosanan.weatherapp.domain.repository.WeatherRepository
+import javax.inject.Inject
 
-class WeatherRemoteDataSourceImpl: WeatherRepository {
-}
+class WeatherRemoteDataSourceImpl @Inject constructor() : WeatherRemoteDataSource
