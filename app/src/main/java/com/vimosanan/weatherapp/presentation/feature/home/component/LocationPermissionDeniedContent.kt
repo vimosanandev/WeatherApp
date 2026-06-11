@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,7 +44,7 @@ fun LocationPermissionDeniedContent(modifier: Modifier = Modifier) {
         Icon(
             imageVector = Icons.Default.LocationOn,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            tint = Color.White,
             modifier = Modifier.size(56.dp),
         )
 
@@ -52,6 +53,7 @@ fun LocationPermissionDeniedContent(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.location_access_required),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
+            color = Color.White,
             textAlign = TextAlign.Center,
         )
 
@@ -60,7 +62,7 @@ fun LocationPermissionDeniedContent(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.location_permission_rationale),
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = Color.White.copy(alpha = 0.8f),
             textAlign = TextAlign.Center,
         )
 
@@ -83,7 +85,7 @@ fun LocationPermissionDeniedContent(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.search_by_city_hint),
             style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+            color = Color.White.copy(alpha = 0.6f),
             textAlign = TextAlign.Center,
         )
     }
