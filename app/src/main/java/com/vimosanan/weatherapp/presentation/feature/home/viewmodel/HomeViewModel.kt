@@ -7,6 +7,8 @@ import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.vimosanan.weatherapp.domain.common.OperationResult
+import com.vimosanan.weatherapp.domain.usecase.city.GetRecentCityUseCase
+import com.vimosanan.weatherapp.domain.usecase.city.SaveRecentCityUseCase
 import com.vimosanan.weatherapp.domain.usecase.location.GetCurrentLocationUseCase
 import com.vimosanan.weatherapp.domain.usecase.weather.GetWeatherParams
 import com.vimosanan.weatherapp.domain.usecase.weather.GetWeatherUseCase
@@ -32,6 +34,8 @@ class HomeViewModel @Inject constructor(
     application: Application,
     private val getWeatherUseCase: GetWeatherUseCase,
     private val getCurrentLocationUseCase: GetCurrentLocationUseCase,
+    private val getRecentCityUseCase: GetRecentCityUseCase,
+    private val saveRecentCityUseCase: SaveRecentCityUseCase,
 ) : AndroidViewModel(application) {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -41,17 +45,29 @@ class HomeViewModel @Inject constructor(
     val events: SharedFlow<HomeUiEvent> = _events.asSharedFlow()
 
     init {
-        if (getCurrentLocationUseCase.isPermissionGranted()) {
-            fetchWeatherFromLocation()
+        viewModelScope.launch {
+            val recentCity = getRecentCityUseCase()
+            when {
+                recentCity != null -> fetchWeather(lat = recentCity.first, lon = recentCity.second)
+                getCurrentLocationUseCase.isPermissionGranted() -> fetchWeatherFromLocation()
+            }
         }
     }
 
     fun onLocationPermissionResult(granted: Boolean) {
-        if (granted) {
-            _uiState.update { it.copy(locationPermissionDenied = false) }
-            fetchWeatherFromLocation()
-        } else {
-            _uiState.update { it.copy(locationPermissionDenied = true) }
+        viewModelScope.launch {
+            val recentCity = getRecentCityUseCase()
+            when {
+                recentCity != null -> {
+                    _uiState.update { it.copy(locationPermissionDenied = false) }
+                    fetchWeather(lat = recentCity.first, lon = recentCity.second)
+                }
+                granted -> {
+                    _uiState.update { it.copy(locationPermissionDenied = false) }
+                    fetchWeatherFromLocation()
+                }
+                else -> _uiState.update { it.copy(locationPermissionDenied = true) }
+            }
         }
     }
 
@@ -94,7 +110,10 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             when (val result = getWeatherUseCase(GetWeatherParams(lat, lon))) {
-                is OperationResult.Success -> _uiState.update { it.copy(isLoading = false, weather = result.data, locationPermissionDenied = false) }
+                is OperationResult.Success -> {
+                    saveRecentCityUseCase(lat, lon)
+                    _uiState.update { it.copy(isLoading = false, weather = result.data, locationPermissionDenied = false) }
+                }
                 is OperationResult.Error -> {
                     _uiState.update { it.copy(isLoading = false) }
                     _events.emit(HomeUiEvent.ShowSnackBar(title = "Failed to fetch weather", description = "Please check your connection and try again."))

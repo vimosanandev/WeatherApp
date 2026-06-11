@@ -59,6 +59,9 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.glide.compose)
 
+    // ── DataStore ────────────────────────────────────────────────────────────
+    implementation(libs.androidx.datastore.preferences)
+
     // ── Location ─────────────────────────────────────────────────────────────
     implementation(libs.play.services.location)
 
