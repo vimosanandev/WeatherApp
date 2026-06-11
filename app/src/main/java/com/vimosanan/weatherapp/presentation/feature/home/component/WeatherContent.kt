@@ -12,12 +12,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.vimosanan.weatherapp.R
 import com.vimosanan.weatherapp.core.extension.kelvinToFahrenheit
+import com.vimosanan.weatherapp.core.extension.metresPerSecToMph
+import com.vimosanan.weatherapp.core.extension.toWeatherIconUrl
 import com.vimosanan.weatherapp.domain.model.Weather
 import com.vimosanan.weatherapp.presentation.preview.WeatherPreviewData
 import com.vimosanan.weatherapp.presentation.ui.theme.WeatherAppTheme
@@ -37,8 +41,18 @@ fun WeatherContent(weather: Weather) {
                     fontWeight = FontWeight.W500
                 ),
             )
+            weather.condition?.icon?.let { icon ->
+                @OptIn(ExperimentalGlideComposeApi::class)
+                GlideImage(
+                    model = icon.toWeatherIconUrl(),
+                    contentDescription = weather.condition.description,
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .height(80.dp)
+                        .padding(vertical = 4.dp),
+                )
+            }
             weather.condition?.description?.let { description ->
-                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodyLarge.copy(
@@ -67,7 +81,7 @@ fun WeatherContent(weather: Weather) {
             WeatherInfoCard(
                 iconRes = R.drawable.icon_wind,
                 title = "WIND",
-                value = "${weather.wind?.speed ?: "-"} MPH",
+                value = "${weather.wind?.speed?.metresPerSecToMph()?.let { "%.1f".format(it) } ?: "-"} MPH",
                 modifier = Modifier
                     .weight(1f)
                     .padding(end = 8.dp),

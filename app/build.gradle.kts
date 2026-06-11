@@ -54,6 +54,10 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+    // ── Image Loading ─────────────────────────────────────────────────────────
+    implementation(libs.glide)
+    implementation(libs.glide.compose)
+
     // ── Hilt (DI) ────────────────────────────────────────────────────────────
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
