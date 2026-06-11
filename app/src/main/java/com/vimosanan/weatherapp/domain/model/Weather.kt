@@ -16,6 +16,7 @@ data class Main(
     val feelsLike: Float?,
     val tempMin: Float?,
     val tempMax: Float?,
+    val humidity: Int?,
 )
 
 data class WeatherCondition(

@@ -23,6 +23,7 @@ fun MainDto.toDomain(): Main = Main(
     feelsLike = feelsLike,
     tempMin = tempMin,
     tempMax = tempMax,
+    humidity = humidity
 )
 
 fun WeatherItemDto.toDomain(): WeatherCondition = WeatherCondition(

@@ -18,6 +18,7 @@ data class MainDto(
     @SerializedName("feels_like") val feelsLike: Float?,
     @SerializedName("temp_min") val tempMin: Float?,
     @SerializedName("temp_max") val tempMax: Float?,
+    @SerializedName("humidity") val humidity: Int?,
 )
 
 data class WeatherItemDto(

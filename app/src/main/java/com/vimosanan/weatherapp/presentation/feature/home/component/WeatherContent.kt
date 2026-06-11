@@ -75,25 +75,39 @@ fun WeatherContent(weather: Weather) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 4.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            WeatherInfoCard(
-                iconRes = R.drawable.icon_wind,
-                title = "WIND",
-                value = "${weather.wind?.speed?.metresPerSecToMph()?.let { "%.1f".format(it) } ?: "-"} MPH",
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(end = 8.dp),
-            )
-            WeatherInfoCard(
-                iconRes = R.drawable.icon_feels_like,
-                title = "FEELS LIKE",
-                value = "${weather.main?.feelsLike?.kelvinToFahrenheit()?.toInt() ?: "-"}°F",
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 8.dp),
-            )
+            weather.main?.humidity?.let {
+                WeatherInfoCard(
+                    iconRes = R.drawable.icon_humidity,
+                    title = "HUMIDITY",
+                    value = "$it%",
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
+                )
+            }
+            weather.wind?.speed?.let { speed ->
+                WeatherInfoCard(
+                    iconRes = R.drawable.icon_wind,
+                    title = "WIND",
+                    value = "${speed.metresPerSecToMph().let { "%.1f".format(it) }} MPH",
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
+                )
+            }
+            weather.main?.feelsLike?.let {
+                WeatherInfoCard(
+                    iconRes = R.drawable.icon_feels_like,
+                    title = "FEELS LIKE",
+                    value = "${it.kelvinToFahrenheit().toInt()}°F",
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 8.dp),
+                )
+            }
         }
     }
 }

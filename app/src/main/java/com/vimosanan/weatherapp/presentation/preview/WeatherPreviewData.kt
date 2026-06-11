@@ -19,6 +19,7 @@ object WeatherPreviewData {
             feelsLike = 313.51f,
             tempMin = 305.66f,
             tempMax = 307.93f,
+            humidity = 50
         ),
         wind = Wind(speed = 3.13f),
     )
