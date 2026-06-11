@@ -1,13 +1,15 @@
 package com.vimosanan.weatherapp.presentation.feature.home.component
 
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.ui.res.painterResource
+import com.vimosanan.weatherapp.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,12 +18,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
+import com.vimosanan.weatherapp.presentation.feature.home.model.LanguageOption
 import com.vimosanan.weatherapp.presentation.ui.theme.WeatherAppTheme
 
 @Composable
 fun LanguageButton(modifier: Modifier = Modifier) {
+    var expanded by remember { mutableStateOf(false) }
     var currentTag by remember {
         mutableStateOf(
             AppCompatDelegate.getApplicationLocales()
@@ -31,29 +34,46 @@ fun LanguageButton(modifier: Modifier = Modifier) {
         )
     }
 
-    val isSpanish = currentTag.startsWith("es")
-    val label = if (isSpanish) "EN" else "ES"
-
-    TextButton(
-        onClick = {
-            val newTag = if (isSpanish) "en" else "es"
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(newTag))
-            currentTag = newTag
-        },
-        modifier = modifier
-            .border(
-                width = 1.dp,
-                color = Color.White.copy(alpha = 0.6f),
-                shape = RoundedCornerShape(8.dp),
+    Box(modifier = modifier) {
+        IconButton(onClick = { expanded = true }) {
+            Icon(
+                painter = painterResource(R.drawable.ic_language),
+                contentDescription = null,
+                tint = Color.White,
             )
-            .padding(horizontal = 2.dp)
-            .height(44.dp),
-    ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.White,
-        )
+        }
+
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+        ) {
+            LanguageOption.entries.forEach { option ->
+                val isSelected = currentTag.startsWith(option.tag)
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = option.displayName,
+                            style = if (isSelected) {
+                                MaterialTheme.typography.bodyMedium.copy(
+                                    color = MaterialTheme.colorScheme.primary,
+                                )
+                            } else {
+                                MaterialTheme.typography.bodyMedium
+                            },
+                        )
+                    },
+                    onClick = {
+                        expanded = false
+                        if (!isSelected) {
+                            AppCompatDelegate.setApplicationLocales(
+                                LocaleListCompat.forLanguageTags(option.tag),
+                            )
+                            currentTag = option.tag
+                        }
+                    },
+                )
+            }
+        }
     }
 }
 
