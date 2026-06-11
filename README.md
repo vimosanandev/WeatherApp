@@ -13,9 +13,13 @@ An Android weather application built with Kotlin and Jetpack Compose following C
 
 ## Screenshots
 
-| Weather | Spanish | City Search | Location Permission | Permission Denied |
-|---|---|---|---|---|
-| ![Weather](screenshots/Screenshot_20260611_004522.png) | ![Spanish](screenshots/Screenshot_20260611_004550.png) | ![Search](screenshots/Screenshot_20260611_004620.png) | ![Permission](screenshots/Screenshot_20260611_004702.png) | ![Denied](screenshots/Screenshot_20260611_004909.png) |
+| Weather (EN) | Weather (ES) | City Search | Location Permission |
+|---|---|---|---|
+| ![Weather EN](screenshots/Screenshot_20260611_004522.png) | ![Weather ES](screenshots/Screenshot_20260611_004550.png) | ![Search](screenshots/Screenshot_20260611_004620.png) | ![Permission](screenshots/Screenshot_20260611_004702.png) |
+
+| Permission Denied (EN) | Permission Denied (ES) | Permission Denied (Tamil) |
+|---|---|---|
+| ![Denied EN](screenshots/Screenshot_20260611_004909.png) | ![Denied ES](screenshots/Screenshot_20260611_005446.png) | ![Denied Tamil](screenshots/Screenshot_20260611_005454.png) |
 
 ## Tech Stack
 
