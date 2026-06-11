@@ -27,6 +27,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import com.vimosanan.weatherapp.core.snackbar.SnackBarController
+import com.vimosanan.weatherapp.presentation.feature.home.event.HomeUiEvent
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -37,6 +39,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vimosanan.weatherapp.presentation.feature.home.component.LocationPermissionDeniedContent
 import com.vimosanan.weatherapp.presentation.feature.home.component.WeatherContent
 import com.vimosanan.weatherapp.presentation.feature.home.viewmodel.HomeViewModel
+import com.vimosanan.weatherapp.presentation.ui.component.AppSnackBarHost
 import com.vimosanan.weatherapp.presentation.ui.component.AppTextField
 import com.vimosanan.weatherapp.presentation.ui.component.LoadingOverlay
 
@@ -51,6 +54,18 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
         val granted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
             permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
         viewModel.onLocationPermissionResult(granted)
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is HomeUiEvent.ShowSnackBar -> SnackBarController.show(
+                    title = event.title,
+                    description = event.description,
+                    type = event.type,
+                )
+            }
+        }
     }
 
     LaunchedEffect(Unit) {
@@ -153,5 +168,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
         if (uiState.isLoading) {
             LoadingOverlay()
         }
+
+        AppSnackBarHost()
     }
 }
