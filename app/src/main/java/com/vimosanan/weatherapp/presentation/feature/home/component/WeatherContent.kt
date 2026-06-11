@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.compose.ui.unit.dp
 import com.vimosanan.weatherapp.R
+import com.vimosanan.weatherapp.core.extension.kelvinToFahrenheit
 import com.vimosanan.weatherapp.domain.model.Weather
 import com.vimosanan.weatherapp.presentation.preview.WeatherPreviewData
 import com.vimosanan.weatherapp.presentation.ui.theme.WeatherAppTheme
@@ -49,9 +50,9 @@ fun WeatherContent(weather: Weather) {
 
         weather.main?.let { main ->
             TemperatureArcCard(
-                temp = main.temp ?: 0f,
-                tempMin = main.tempMin ?: 0f,
-                tempMax = main.tempMax ?: 0f,
+                temp = (main.temp ?: 0f).kelvinToFahrenheit(),
+                tempMin = (main.tempMin ?: 0f).kelvinToFahrenheit(),
+                tempMax = (main.tempMax ?: 0f).kelvinToFahrenheit(),
             )
         }
 
@@ -74,7 +75,7 @@ fun WeatherContent(weather: Weather) {
             WeatherInfoCard(
                 iconRes = R.drawable.icon_feels_like,
                 title = "FEELS LIKE",
-                value = "${weather.main?.feelsLike ?: "-"}°F",
+                value = "${weather.main?.feelsLike?.kelvinToFahrenheit()?.toInt() ?: "-"}°F",
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 8.dp),

@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
         fetchWeather()
     }
 
-    fun fetchWeather(lat: Double = 32.78, lon: Double = -96.795) {
+    fun fetchWeather(lat: Double = 32.9483, lon: Double = -96.7299) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
             when (val result = getWeatherUseCase(GetWeatherParams(lat, lon))) {
