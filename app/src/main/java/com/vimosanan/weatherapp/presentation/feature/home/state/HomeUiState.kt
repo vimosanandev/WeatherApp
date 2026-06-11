@@ -7,4 +7,5 @@ data class HomeUiState(
     val weather: Weather? = null,
     val error: String? = null,
     val searchQuery: String = "",
+    val locationPermissionDenied: Boolean = false,
 )

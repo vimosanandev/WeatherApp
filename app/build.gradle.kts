@@ -59,6 +59,9 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.glide.compose)
 
+    // ── Location ─────────────────────────────────────────────────────────────
+    implementation(libs.play.services.location)
+
     // ── Hilt (DI) ────────────────────────────────────────────────────────────
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
