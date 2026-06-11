@@ -16,6 +16,8 @@ glide = "1.0.0-beta09"
 glideVersion = "5.0.7"
 playServicesLocation = "21.3.0"
 datastorePreferences = "1.2.1"
+mockitoKotlin = "5.4.0"
+coroutinesTest = "1.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +46,10 @@ glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "g
 
 # ── DataStore ────────────────────────────────────────────────────────────────
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 
 # ── Location ─────────────────────────────────────────────────────────────────
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
