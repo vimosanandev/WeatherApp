@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.vimosanan.weatherapp.presentation.feature.home.screen.HomeScreen
+import androidx.navigation.compose.rememberNavController
+import com.vimosanan.weatherapp.presentation.navigation.AppNavHost
 import com.vimosanan.weatherapp.presentation.ui.theme.WeatherAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,7 +16,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WeatherAppTheme {
-                HomeScreen()
+                val navController = rememberNavController()
+                AppNavHost(navController = navController)
             }
         }
     }
