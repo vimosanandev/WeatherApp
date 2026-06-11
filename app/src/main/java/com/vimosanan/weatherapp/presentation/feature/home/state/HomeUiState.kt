@@ -6,4 +6,5 @@ data class HomeUiState(
     val isLoading: Boolean = false,
     val weather: Weather? = null,
     val error: String? = null,
+    val searchQuery: String = "",
 )

@@ -26,6 +26,14 @@ class HomeViewModel @Inject constructor(
         fetchWeather()
     }
 
+    fun onSearchQueryChange(query: String) {
+        _uiState.update { it.copy(searchQuery = query) }
+    }
+
+    fun onSearchSubmit() {
+        // TODO: geocode city name to lat/lon and call fetchWeather
+    }
+
     fun fetchWeather(lat: Double = 32.9483, lon: Double = -96.7299) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
