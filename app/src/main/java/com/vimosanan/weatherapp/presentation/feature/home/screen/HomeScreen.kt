@@ -19,10 +19,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -34,6 +38,7 @@ import com.vimosanan.weatherapp.presentation.ui.component.LoadingOverlay
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val focusManager = LocalFocusManager.current
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -51,6 +56,12 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                     onValueChange = { viewModel.onSearchQueryChange(it) },
                     placeholder = "Search city...",
                     modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                    keyboardActions = KeyboardActions(onSearch = {
+                        focusManager.clearFocus()
+                        viewModel.onSearchSubmit()
+                        viewModel.onSearchQueryChange("")
+                    }),
                     leadingContent = {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -62,7 +73,10 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                     trailingIcon = {
                         if (uiState.searchQuery.isNotEmpty()) {
                             IconButton(
-                                onClick = { viewModel.onSearchQueryChange("") },
+                                onClick = {
+                                    viewModel.onSearchQueryChange("")
+                                    focusManager.clearFocus()
+                                },
                                 modifier = Modifier
                                     .padding(end = 12.dp)
                                     .size(18.dp),
@@ -78,7 +92,11 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                     },
                 )
                 IconButton(
-                    onClick = { viewModel.onSearchSubmit() },
+                    onClick = {
+                        focusManager.clearFocus()
+                        viewModel.onSearchSubmit()
+                        viewModel.onSearchQueryChange("")
+                    },
                     modifier = Modifier
                         .size(48.dp)
                         .background(

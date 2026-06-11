@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -37,6 +38,7 @@ fun AppTextField(
     isError: Boolean = false,
     errorMessage: String = "",
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     readOnly: Boolean = false,
     leadingContent: (@Composable () -> Unit)? = null,
@@ -72,6 +74,7 @@ fun AppTextField(
             singleLine = true,
             readOnly = readOnly,
             keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
             visualTransformation = visualTransformation,
             textStyle = MaterialTheme.typography.bodyMedium.copy(
                 color = MaterialTheme.colorScheme.onSurface.copy(
