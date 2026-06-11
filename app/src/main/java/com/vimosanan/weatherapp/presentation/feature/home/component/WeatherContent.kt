@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +39,8 @@ fun WeatherContent(weather: Weather) {
             Text(
                 text = weather.city.orEmpty(),
                 style = MaterialTheme.typography.headlineLarge.copy(
-                    fontWeight = FontWeight.W500
+                    fontWeight = FontWeight.W500,
+                    color = Color.White,
                 ),
             )
             weather.condition?.icon?.let { icon ->
@@ -56,7 +58,8 @@ fun WeatherContent(weather: Weather) {
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodyLarge.copy(
-                        fontWeight = FontWeight.W400
+                        fontWeight = FontWeight.W400,
+                        color = Color.White,
                     ),
                 )
             }

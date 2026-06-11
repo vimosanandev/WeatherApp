@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
@@ -99,14 +100,14 @@ fun TemperatureArcCard(
             text = "${temp.toInt()}°",
             fontSize = 48.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface,
+            color = Color.White,
         )
 
         // Bottom-left: tempMin
         Text(
             text = "${tempMin.toInt()}°",
             style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = Color.White.copy(alpha = 0.8f),
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .offset(x = 8.dp),
@@ -116,7 +117,7 @@ fun TemperatureArcCard(
         Text(
             text = "${tempMax.toInt()}°",
             style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = Color.White.copy(alpha = 0.8f),
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .offset(x = (-8).dp),
