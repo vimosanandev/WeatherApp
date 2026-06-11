@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+
+    <!-- Search -->
+    <string name="search_city_placeholder">Search city…</string>
+    <string name="cd_clear_search">Clear</string>
+    <string name="cd_search">Search</string>
+
+    <!-- Weather info card labels -->
+    <string name="label_humidity">HUMIDITY</string>
+    <string name="label_wind">WIND</string>
+    <string name="label_feels_like">FEELS LIKE</string>
+
+    <!-- Location permission denied -->
+    <string name="location_access_required">Location Access Required</string>
+    <string name="location_permission_rationale">Allow location permission so we can show weather for your current location.</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="search_by_city_hint">You can still search by city name below to get the weather.</string>
+
+    <!-- Error messages -->
+    <string name="error_location_not_found">Location not found</string>
+    <string name="error_location_not_found_desc">&quot;%1$s&quot; could not be found. Try a different city name.</string>
+    <string name="error_fetch_weather">Failed to fetch weather</string>
+    <string name="error_fetch_weather_desc">Please check your connection and try again.</string>
 </resources>

@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
@@ -84,7 +85,7 @@ fun WeatherContent(weather: Weather) {
             weather.main?.humidity?.let {
                 WeatherInfoCard(
                     iconRes = R.drawable.icon_humidity,
-                    title = "HUMIDITY",
+                    title = stringResource(R.string.label_humidity),
                     value = "$it%",
                     modifier = Modifier
                         .weight(1f)
@@ -94,7 +95,7 @@ fun WeatherContent(weather: Weather) {
             weather.wind?.speed?.let { speed ->
                 WeatherInfoCard(
                     iconRes = R.drawable.icon_wind,
-                    title = "WIND",
+                    title = stringResource(R.string.label_wind),
                     value = "${speed.metresPerSecToMph().let { "%.1f".format(it) }} MPH",
                     modifier = Modifier
                         .weight(1f)
@@ -104,7 +105,7 @@ fun WeatherContent(weather: Weather) {
             weather.main?.feelsLike?.let {
                 WeatherInfoCard(
                     iconRes = R.drawable.icon_feels_like,
-                    title = "FEELS LIKE",
+                    title = stringResource(R.string.label_feels_like),
                     value = "${it.kelvinToFahrenheit().toInt()}°F",
                     modifier = Modifier
                         .weight(1f)

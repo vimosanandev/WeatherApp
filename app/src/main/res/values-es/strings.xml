@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+
+    <!-- Search -->
+    <string name="search_city_placeholder">Buscar ciudad…</string>
+    <string name="cd_clear_search">Borrar</string>
+    <string name="cd_search">Buscar</string>
+
+    <!-- Weather info card labels -->
+    <string name="label_humidity">HUMEDAD</string>
+    <string name="label_wind">VIENTO</string>
+    <string name="label_feels_like">SENSACIÓN</string>
+
+    <!-- Location permission denied -->
+    <string name="location_access_required">Acceso a Ubicación Requerido</string>
+    <string name="location_permission_rationale">Permite el acceso a tu ubicación para mostrarte el clima de tu zona actual.</string>
+    <string name="open_settings">Abrir Configuración</string>
+    <string name="search_by_city_hint">Aún puedes buscar por nombre de ciudad para ver el clima.</string>
+
+    <!-- Error messages -->
+    <string name="error_location_not_found">Ubicación no encontrada</string>
+    <string name="error_location_not_found_desc">&quot;%1$s&quot; no se encontró. Prueba con otro nombre de ciudad.</string>
+    <string name="error_fetch_weather">No se pudo obtener el clima</string>
+    <string name="error_fetch_weather_desc">Verifica tu conexión e inténtalo de nuevo.</string>
+</resources>

@@ -18,6 +18,7 @@ playServicesLocation = "21.3.0"
 datastorePreferences = "1.2.1"
 mockitoKotlin = "5.4.0"
 coroutinesTest = "1.9.0"
+appcompat = "1.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,6 +47,9 @@ glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "g
 
 # ── DataStore ────────────────────────────────────────────────────────────────
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+
+# ── AppCompat ────────────────────────────────────────────────────────────────
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 # ── Testing ───────────────────────────────────────────────────────────────────
 mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }

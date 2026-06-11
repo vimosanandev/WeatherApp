@@ -1,11 +1,6 @@
 package com.vimosanan.weatherapp.presentation.feature.home.event
 
-import com.vimosanan.weatherapp.presentation.ui.component.ToastType
-
 sealed class HomeUiEvent {
-    data class ShowSnackBar(
-        val title: String,
-        val description: String? = null,
-        val type: ToastType = ToastType.ERROR,
-    ) : HomeUiEvent()
+    data class LocationNotFound(val query: String) : HomeUiEvent()
+    data object FetchWeatherFailed : HomeUiEvent()
 }

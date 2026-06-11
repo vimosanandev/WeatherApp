@@ -65,6 +65,9 @@ dependencies {
     // ── DataStore ────────────────────────────────────────────────────────────
     implementation(libs.androidx.datastore.preferences)
 
+    // ── AppCompat ────────────────────────────────────────────────────────────
+    implementation(libs.androidx.appcompat)
+
     // ── Location ─────────────────────────────────────────────────────────────
     implementation(libs.play.services.location)
 

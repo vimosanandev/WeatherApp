@@ -89,7 +89,7 @@ class HomeViewModel @Inject constructor(
                 fetchWeather(lat = location.latitude, lon = location.longitude)
             } else {
                 _uiState.update { it.copy(isLoading = false) }
-                _events.emit(HomeUiEvent.ShowSnackBar(title = "Location not found", description = "\"$query\" could not be found. Try a different city name."))
+                _events.emit(HomeUiEvent.LocationNotFound(query))
             }
         }
     }
@@ -116,7 +116,7 @@ class HomeViewModel @Inject constructor(
                 }
                 is OperationResult.Error -> {
                     _uiState.update { it.copy(isLoading = false) }
-                    _events.emit(HomeUiEvent.ShowSnackBar(title = "Failed to fetch weather", description = "Please check your connection and try again."))
+                    _events.emit(HomeUiEvent.FetchWeatherFailed)
                 }
             }
         }

@@ -7,12 +7,15 @@ import androidx.compose.foundation.background
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,10 +37,13 @@ import com.vimosanan.weatherapp.presentation.feature.home.event.HomeUiEvent
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.vimosanan.weatherapp.R
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.vimosanan.weatherapp.presentation.feature.home.component.LanguageButton
 import com.vimosanan.weatherapp.presentation.feature.home.component.LocationPermissionDeniedContent
 import com.vimosanan.weatherapp.presentation.feature.home.component.WeatherContent
 import com.vimosanan.weatherapp.presentation.feature.home.viewmodel.HomeViewModel
@@ -49,6 +55,7 @@ import com.vimosanan.weatherapp.presentation.ui.component.LoadingOverlay
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions(),
@@ -61,10 +68,13 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     LaunchedEffect(Unit) {
         viewModel.events.collect { event ->
             when (event) {
-                is HomeUiEvent.ShowSnackBar -> SnackBarController.show(
-                    title = event.title,
-                    description = event.description,
-                    type = event.type,
+                is HomeUiEvent.LocationNotFound -> SnackBarController.show(
+                    title = context.getString(R.string.error_location_not_found),
+                    description = context.getString(R.string.error_location_not_found_desc, event.query),
+                )
+                HomeUiEvent.FetchWeatherFailed -> SnackBarController.show(
+                    title = context.getString(R.string.error_fetch_weather),
+                    description = context.getString(R.string.error_fetch_weather_desc),
                 )
             }
         }
@@ -92,6 +102,17 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
             .fillMaxSize()
             .background(backgroundGradient),
         containerColor = Color.Transparent,
+        topBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .statusBarsPadding()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                contentAlignment = Alignment.CenterEnd,
+            ) {
+                LanguageButton()
+            }
+        },
         bottomBar = {
             Row(
                 modifier = Modifier
@@ -104,7 +125,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 AppTextField(
                     value = uiState.searchQuery,
                     onValueChange = { viewModel.onSearchQueryChange(it) },
-                    placeholder = "Search city...",
+                    placeholder = stringResource(R.string.search_city_placeholder),
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                     keyboardActions = KeyboardActions(onSearch = {
@@ -133,7 +154,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Close,
-                                    contentDescription = "Clear",
+                                    contentDescription = stringResource(R.string.cd_clear_search),
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                     modifier = Modifier.size(16.dp),
                                 )
@@ -156,7 +177,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 ) {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "Search",
+                        contentDescription = stringResource(R.string.cd_search),
                         tint = MaterialTheme.colorScheme.onPrimary,
                     )
                 }
